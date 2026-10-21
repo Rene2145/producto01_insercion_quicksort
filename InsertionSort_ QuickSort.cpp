@@ -18,11 +18,18 @@ int main() {
     }
 
     insercionDirecta(insercion, n);
+    quicksort(rapido, 0, n - 1);
 
     cout << "\nInsercion directa: ";
     for (int i = 0; i < n; i++) {
         cout << insercion[i] << " ";
     }
+
+    cout << "\nQuickSort: ";
+    for (int i = 0; i < n; i++) {
+        cout << rapido[i] << " ";
+    }
+    cout << "\n";
 
     return 0;
 }
@@ -39,3 +46,40 @@ void insercionDirecta(int datos[], int n) {
         datos[j + 1] = clave;
     }
 }
+
+void quicksort(int datos[], int izquierda, int derecha) {
+    if (izquierda >= derecha) {
+        return; 
+    }
+
+    int i = izquierda;
+    int j = derecha;
+    int centro = izquierda + (derecha - izquierda) / 2;
+    int pivote = datos[centro];
+
+    while (i <= j) {
+        while (datos[i] < pivote) {
+            i++;
+        }
+        while (datos[j] > pivote) {
+            j--;
+        }
+
+        if (i <= j) {
+            if (i < j) {
+                int auxiliar = datos[i];
+                datos[i] = datos[j];
+                datos[j] = auxiliar;
+            }
+            i++;
+            j--;
+        }
+    }
+    if (izquierda < j) {
+        quicksort(datos, izquierda, j);
+    }
+    if (i < derecha) {
+        quicksort(datos, i, derecha);
+    }
+}
+

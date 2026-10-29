@@ -9,9 +9,9 @@ Algoritmos seleccionados:
 - QuickSort
 
 Estructura del repositorio: 
-- src/: codigo C++
-- docs/: articulo cientifico
-- results/: resultados experimentales
-- Avances/: trabajos previos del proyecto
+- src: codigo C++
+- docs: articulo cientifico
+- results: resultados experimentales
+- Avances: trabajos previos del proyecto
 
 Compilacion y ejecucion: Desde la carpeta principal del repositorio.

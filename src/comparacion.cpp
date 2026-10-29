@@ -29,6 +29,7 @@ int main() {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     insercionDirecta(insercion,n,compInsercion);
     chrono::steady_clock::time_point end = chrono::steady_clock::now();
+    long long tiempoInsercion=chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
     cout<<"\n+-------------------+"<<endl;
 	cout<<"| INSERCION DIRECTA |"<<endl;
     cout<<"+-------------------+"<<endl;
@@ -46,6 +47,7 @@ int main() {
 	begin=chrono::steady_clock::now();
     quicksort(rapido,0,n-1,compQuick,interQuick);
     end=chrono::steady_clock::now();
+    long long tiempoQuick=chrono::duration_cast<chrono::nanoseconds>(end - begin).count();
     cout<<"\n+-------------------+"<<endl;
     cout<<"|     QUICKSORT     |"<<endl;
     cout<<"+-------------------+"<<endl;
@@ -58,7 +60,17 @@ int main() {
     cout<<chrono::duration_cast<chrono::nanoseconds>(end - begin).count()<<"[ns]"<<endl;
     cout<<"Comparaciones: "<<compQuick<<endl;
     cout<<"Intercambios: "<<interQuick<<endl;
-
+    
+	ofstream archivo("pruebas_manuales.csv");
+	if(archivo.is_open()){
+	    archivo<<"algoritmo,n,tiempo_ns,comparaciones,intercambios\n";
+	    archivo<<"Insercion,"<<n<<","<<tiempoInsercion<<","<<compInsercion<<",0\n";
+	    archivo<<"QuickSort,"<<n<<","<<tiempoQuick<<","<<compQuick<<","<<interQuick<<"\n";
+	    archivo.close();
+	    cout<<"\nResultados guardados en CSV"<<endl;
+	}else{
+	    cout<<"\nError al guardar el archivo"<<endl;
+	}  
     return 0;
 }
 

@@ -1,3 +1,3 @@
 algoritmo,n,tiempo_ns,comparaciones,intercambios
-Insercion,5,400,8,0
-QuickSort,5,500,15,4
+Insercion,5,700,10,0
+QuickSort,5,900,12,5

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include <cstdlib>
 using namespace std;
 
 void insercionDirecta(int datos[],int n,int &comparaciones);
@@ -11,20 +12,44 @@ int main() {
     int n=0;
     int original[MAX],insercion[MAX],rapido[MAX];
     int compInsercion=0,compQuick=0,interQuick=0;
+	int opcion;
+	cout<<endl;
+	cout<<"1) Numeros manuales"<<endl;
+	cout<<"2) Numeros aleatorios"<<endl;
+	cout<<"3) Numeros ascendentes"<<endl;
+	cout<<"4) Numeros descendentes"<<endl;
+	cout<<"Elige una opcion: ";
+	cin>>opcion;
+	if(!cin||opcion<1||opcion>4){
+	    cout<<"No es una opcion valida"<<endl;
+	    return 0;
+	}
+    
     cout<<"Ingresa la cantidad de numeros: ";
     if(!(cin>>n)||n<1||n>MAX){
-        cout<<"Es una cantidad invalida"<<endl;
+        cout<<"No es una cantidad valida"<<endl;
         return 0;
     }
-    for(int i=0;i<n;i++){
-        cout<<"- Numero "<<"( "<<i+1<<" )"<<": ";
-        if(!(cin>>original[i])){
-            cout<<"No es un dato valido"<<endl;
-            return 0;
-        }
-        insercion[i]=original[i];
-        rapido[i]=original[i];
-    }
+
+	srand(12345);
+	for(int i=0;i<n;i++){
+	    if(opcion==1){
+	        cout<<"Numero "<<i+1<<": ";
+	        if(!(cin>>original[i])){
+	            cout<<"Dato invalido"<<endl;
+	            return 0;
+	        }
+	    }else if(opcion==2){
+	        original[i]=rand()%10000;
+	    }else if(opcion==3){
+	        original[i]=i+1;
+	    }else{
+	        original[i]=n-i;
+	    }
+	    insercion[i]=original[i];
+	    rapido[i]=original[i];
+	}
+
 
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     insercionDirecta(insercion,n,compInsercion);
@@ -61,7 +86,7 @@ int main() {
     cout<<"Comparaciones: "<<compQuick<<endl;
     cout<<"Intercambios: "<<interQuick<<endl;
     
-	ofstream archivo("pruebas_manuales.csv");
+	ofstream archivo("results/pruebas_manuales.csv");
 	if(archivo.is_open()){
 	    archivo<<"algoritmo,n,tiempo_ns,comparaciones,intercambios\n";
 	    archivo<<"Insercion,"<<n<<","<<tiempoInsercion<<","<<compInsercion<<",0\n";
